@@ -15,5 +15,13 @@
   "bugs": {
     "url": "https://github.com/jalvaradoas39/ecommerce-restaurant/issues"
   },
-  "homepage": "https://github.com/jalvaradoas39/ecommerce-restaurant#readme"
+  "homepage": "https://github.com/jalvaradoas39/ecommerce-restaurant#readme",
+  "dependencies": {
+    "concurrently": "^5.0.2",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "express-validator": "^6.3.0",
+    "mongoose": "^5.8.1",
+    "nodemon": "^2.0.2"
+  }
 }
