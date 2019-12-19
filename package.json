@@ -1,0 +1,19 @@
+{
+  "name": "el-balcon",
+  "version": "1.0.0",
+  "description": "MERN Stack Ecommerce Restaurant",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jalvaradoas39/ecommerce-restaurant.git"
+  },
+  "author": "Jorge Alvarado",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jalvaradoas39/ecommerce-restaurant/issues"
+  },
+  "homepage": "https://github.com/jalvaradoas39/ecommerce-restaurant#readme"
+}
