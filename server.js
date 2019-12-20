@@ -1,10 +1,12 @@
 const express = require('express');
 const app = express();
 const cors = require('cors');
+const connectDB = require('./database/db');
 
 
 
-
+// connect database
+connectDB();
 
 
 // middleware
