@@ -5,14 +5,12 @@ const { mongoURI } = require('../config/keys');
 const connectDB = async () => {
     try {
         await mongoose.connect(mongoURI, {
-            useNewUrlParser: true
-            // useUnifiedTopology: false, (Note: Bug when setting to true; "MongoTimeoutError" on Heroku )
-            
+            useNewUrlParser: true,
+            useUnifiedTopology: false
         });
         console.log('Database connection success!!!');
     } catch (err) {
         console.log(err);
-        process.exit(1)
     }
 }
 
