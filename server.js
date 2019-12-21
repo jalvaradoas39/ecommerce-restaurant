@@ -23,7 +23,7 @@ app.use(express.json());
 
 
 
-if (Process.env.NODE_ENV === 'production') {
+if (process.env.NODE_ENV === 'production') {
     // serve static files (js, css, ext.)
     app.use(express.static('client/build'));
 
