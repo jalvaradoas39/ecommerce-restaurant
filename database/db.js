@@ -1,12 +1,12 @@
 const mongoose = require('mongoose');
-const { mongoURI } = require('../config/keys');
+const { mongoURI,useUnifiedTopology } = require('../config/keys');
 
 
 const connectDB = async () => {
     try {
         await mongoose.connect(mongoURI, {
             useNewUrlParser: true,
-            useUnifiedTopology: false
+            useUnifiedTopology
         });
         console.log('Database connection success!!!');
     } catch (err) {
