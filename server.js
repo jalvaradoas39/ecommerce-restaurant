@@ -27,7 +27,7 @@ if (process.env.NODE_ENV === 'production') {
     // serve static files (js, css, ext.)
     app.use(express.static('client/build'));
 
-    // Serve index.html if any route not recognized by Express server
+    // serve index.html if any route not recognized by Express server
     const path = require('path');
     app.get('*', (req,res) => {
         res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
