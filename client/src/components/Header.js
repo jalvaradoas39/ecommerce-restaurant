@@ -9,7 +9,7 @@ const Header = () => (
             <Menu stackable>
                 <Container>
 
-                    <Menu.Item>
+                    <Menu.Item as={Link} to='/'>
                         <Image 
                             src={process.env.PUBLIC_URL + '/images/logo.PNG'}
                             size='tiny'
