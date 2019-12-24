@@ -1,7 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Menu, Image, Icon, Container } from 'semantic-ui-react';
-import logo from './logo.PNG';
 
 
 const Header = () => (
@@ -12,9 +11,10 @@ const Header = () => (
 
                     <Menu.Item>
                         <Image 
-                            src={logo}
+                            src={process.env.PUBLIC_URL + '/images/logo.PNG'}
                             size='tiny'
                         />
+                        {process.env.NODE_ENV}
                     </Menu.Item>
                     <Menu.Item as={Link} to='/'>
                         <Icon
