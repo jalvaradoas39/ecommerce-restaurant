@@ -7,6 +7,7 @@ import Home from './Home';
 import Signup from './Signup';
 import Signin from './Signin';
 import Shop from './Shop';
+import Cart from './Cart';
 import NoMatch from './NoMatch';
 
 
@@ -20,6 +21,7 @@ const App = () => {
                 <Route exact path='/signup' component={Signup} />
                 <Route exact path='/signin' component={Signin} />
                 <Route exact path='/shop' component={Shop} />
+                <Route exact path='/cart' component={Cart} />
                 <Route component={NoMatch} />
             </Switch>
         </BrowserRouter>
