@@ -2,7 +2,7 @@ import React from 'react';
 
 
 const Signin = () => (
-    <div>Signin Page</div>
+    <section>Signin Page</section>
 );
 
 export default Signin;

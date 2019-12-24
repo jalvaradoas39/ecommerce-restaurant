@@ -2,7 +2,7 @@ import React from 'react';
 
 
 const Signup = () => (
-    <div>Signup Page</div>
+    <section>Signup Page</section>
 );
 
 export default Signup;

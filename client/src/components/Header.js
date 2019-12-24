@@ -14,7 +14,6 @@ const Header = () => (
                             src={process.env.PUBLIC_URL + '/images/logo.PNG'}
                             size='tiny'
                         />
-                        {process.env.NODE_ENV}
                     </Menu.Item>
                     <Menu.Item as={Link} to='/'>
                         <Icon

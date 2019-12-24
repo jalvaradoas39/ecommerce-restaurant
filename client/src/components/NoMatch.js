@@ -2,7 +2,7 @@ import React from 'react';
 
 
 const NoMatch = () => (
-    <div>NoMatch Page</div>
+    <section>NoMatch Page</section>
 );
 
 export default NoMatch;
