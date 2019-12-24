@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const { mongoURI,useUnifiedTopology } = require('../config/keys');
+const { mongoURI, useUnifiedTopology } = require('../config/keys');
 
 
 const connectDB = async () => {

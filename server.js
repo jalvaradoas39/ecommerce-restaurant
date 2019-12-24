@@ -1,6 +1,7 @@
 const express = require('express');
 const app = express();
 const cors = require('cors');
+const { port } = require('./config/keys');
 const connectDB = require('./database/db');
 
 
@@ -37,7 +38,6 @@ if (process.env.NODE_ENV === 'production') {
 
 
 
-// create port to listen for incoming requests to backend server
-const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => console.log(`Backend Server listening on port ${PORT}`));
+// listen for incoming requests to backend server
+app.listen(port, () => console.log(`Backend Server listening on port ${port}`));
 
