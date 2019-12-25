@@ -1,7 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const { check, validationResult } = require('express-validator');
-
+const bcrypt = require('bcryptjs');
+const User = require('../models/User');
 
 
 
@@ -20,7 +21,8 @@ router.post('/signup',
     check('password', 'Password must be at least 6 characters long dude')
         .isLength({ min: 6 })
 ], 
-(req, res) => {
+async (req, res) => {
+
     // validation results
     const validationErrors = validationResult(req);
 
@@ -32,12 +34,32 @@ router.post('/signup',
         });
     }
 
-    
 
+    const { name, email, password } = req.body;
 
-    return res.json({
-        successMsg: 'Easy day Hooyah!!!'
-    });
+    try {
+        // check if email already exists
+        let user = await User.findOne({ email });
+        if (user) {
+            return res.status(400).json({
+                errorMsg: 'Email already exists'
+            });
+        }
+        // salt password
+        const salt = await bcrypt.genSalt(10);
+        // hash password
+        const hashedPassword = await bcrypt.hash(password, salt);
+        // create new user
+        user = new User({ name, email, hashedPassword });
+        // save new user
+        const newUser = await user.save();
+        // send back newly created user
+        res.json(newUser);
+
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('Server Error: auth');
+    }
     
 });
 

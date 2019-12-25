@@ -45,13 +45,14 @@ const Signup = () => {
             setFormData({ ...formData, errorMsg: 'Passwords do not match' });
         } else {
             // Success (submit form data to backend via HTTP Request)
+            setFormData({ ...formData, isLoading: true });
             signup({ name, email, password })
-            .then(res => {
-                setFormData({ ...formData, successMsg: res.data.successMsg });
-            })
-            .catch(err => {
-                setFormData({ ...formData, errorMsg: err.response.data.errorMsg });
-            })
+                .then(res => {
+                    setFormData({ ...formData, successMsg: true, isLoading: false });
+                })
+                .catch(err => {
+                    setFormData({ ...formData, errorMsg: err.response.data.errorMsg, isLoading: false });
+                });
         }
     }
 
@@ -67,7 +68,11 @@ const Signup = () => {
                 content='Fill out the form below to signup for a new account'
             />
             <Form className='attached fluid segment' loading={isLoading} success={Boolean(successMsg)} error={Boolean(errorMsg)} onSubmit={handleSubmit} noValidate>
-                <Message success header='Success!' content={successMsg} />
+                {/* <Message success header='Success!' content={successMsg} /> */}
+                <Message success>
+                    <Message.Header>Success!</Message.Header>
+                    <p>Please <Link to='/signin'>signin</Link>&nbsp;here</p>
+                </Message>
                 <Message error header='Oops!' content={errorMsg} />
                 <Form.Input
                     fluid
