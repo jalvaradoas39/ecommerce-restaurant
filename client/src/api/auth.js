@@ -4,8 +4,8 @@ import axios from 'axios';
 export const signup = userData => {
     const config = {
         headers: {
-            'content-type': 'application/json',
-            accept: 'application/json'
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
         }
     }
 
