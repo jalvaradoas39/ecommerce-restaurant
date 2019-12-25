@@ -9,7 +9,7 @@ const Signup = () => {
 
     /************ component state *************/
     const [formData, setFormData] = useState({
-        name: 'john doe',
+        name: 'John Doe',
         email: 'jdoe@gmail.com',
         password: '',
         password2: '',
@@ -35,22 +35,39 @@ const Signup = () => {
         evt.preventDefault();
 
         // clientside validation
-        if ( isEmpty(name) || isEmpty(email) || isEmpty(password) || isEmpty(password2) ) {
-            setFormData({ ...formData, errorMsg: 'Please enter all fields' });
-        } else if ( !isEmail(email) ) {
-            setFormData({ ...formData, errorMsg: 'Please enter a valid email' });
-        } else if ( !isLength(password, {min: 6}) ) {
-            setFormData({ ...formData, errorMsg: 'Password must be at least 6 characters long' });
-        } else if ( password !== password2 ) {
-            setFormData({ ...formData, errorMsg: 'Passwords do not match' });
-        } else {
-            // Success!!! (Submission of form data to backend via HTTP Request goes here)
-            signup({ name, email, password })
-                .then(res => console.log(res))
-                .catch(err => {
-                    console.log(err);
-                });
-        }
+        // if ( isEmpty(name) || isEmpty(email) || isEmpty(password) || isEmpty(password2) ) {
+        //     setFormData({ ...formData, errorMsg: 'Please enter all fields' });
+        // } else if ( !isEmail(email) ) {
+        //     setFormData({ ...formData, errorMsg: 'Please enter a valid email' });
+        // } else if ( !isLength(password, {min: 6}) ) {
+        //     setFormData({ ...formData, errorMsg: 'Password must be at least 6 characters long' });
+        // } else if ( password !== password2 ) {
+        //     setFormData({ ...formData, errorMsg: 'Passwords do not match' });
+        // } else {
+        //     // Success!!! (Submission of form data to backend via HTTP Request goes here)
+        //     signup({ name, email, password })
+        //         .then(res => console.log(res))
+        //         .catch(err => {
+        //             console.log(err);
+        //         });
+        // }
+
+        // signup({ name, email, password })
+        // .then(res => console.log(res))
+        // .catch(err => {
+        //     console.log(err);
+        // });
+
+        signup({ name, email, password })
+            .then(res => {
+                console.log(res.data);
+                setFormData({ ...formData, successMsg: res.data.successMsg });
+            })
+            .catch(err => {
+                console.error(err);
+                setFormData({ ...formData, errorMsg: err.response.data.errorMsg });
+            })
+
     }
 
     

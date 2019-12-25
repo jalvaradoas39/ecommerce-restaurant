@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 
-export const signup = async (userData) => {
+export const signup = userData => {
     const config = {
         headers: {
             'content-type': 'application/json',
@@ -9,7 +9,5 @@ export const signup = async (userData) => {
         }
     }
 
-    const body = JSON.stringify(userData);
-
-    return axios.post('/api/auth/signup', body, config);    
+    return axios.post('/api/auth/signup', userData, config)
 }
