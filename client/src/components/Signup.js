@@ -13,10 +13,10 @@ const Signup = () => {
         password2: '',
         successMsg: false,
         errorMsg: false,
-        loading: false
+        isLoading: false
     });
 
-    const { name, email, password, password2, successMsg, errorMsg, loading } = formData;
+    const { name, email, password, password2, successMsg, errorMsg, isLoading } = formData;
 
 
     /************ events *************/
@@ -40,7 +40,7 @@ const Signup = () => {
                 header='Welcome to El Balcon!'
                 content='Fill out the form below to signup for a new account'
             />
-            <Form className='attached fluid segment' success={Boolean(successMsg)} error={Boolean(errorMsg)}>
+            <Form className='attached fluid segment' loading={isLoading} success={Boolean(successMsg)} error={Boolean(errorMsg)}>
                 <Message success header='Success!' content={successMsg} />
                 <Message error header='Oops!' content={errorMsg} />
                 <Form.Input
@@ -101,7 +101,7 @@ const Signup = () => {
     );
 
     
-    /************ display *************/
+    /************ output *************/
     return (
         <section>
             {/* { JSON.stringify(formData) } */}
