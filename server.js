@@ -3,6 +3,7 @@ const app = express();
 const cors = require('cors');
 const { port } = require('./config/keys');
 const connectDB = require('./database/db');
+const authRoutes = require('./routes/auth');
 
 
 
@@ -17,9 +18,8 @@ app.use(express.json());
 
 
 
-// initial testing route ONLY!!!
-// app.get('/', (req, res) => res.send('Hello world!!!'));
-// app.get('/', (req, res) => res.json({ successMsg: 'Hello world from backend!!!' }));
+// routes
+app.use('/api/auth', authRoutes);
 
 
 

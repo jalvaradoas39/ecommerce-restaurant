@@ -46,7 +46,10 @@ const Signup = () => {
         } else {
             // Success!!! (Submission of form data to backend via HTTP Request goes here)
             signup({ name, email, password })
-                .then(res => console.log(res));
+                .then(res => console.log(res))
+                .catch(err => {
+                    console.log(err);
+                });
         }
     }
 
