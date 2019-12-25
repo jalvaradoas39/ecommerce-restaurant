@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { isEmpty, isEmail, isLength } from 'validator';
 import { Container, Form, Message, Button } from 'semantic-ui-react';
 
 
@@ -7,8 +8,8 @@ const Signup = () => {
 
     /************ component state *************/
     const [formData, setFormData] = useState({
-        name: '',
-        email: '',
+        name: 'john',
+        email: 'john@gmail.com',
         password: '',
         password2: '',
         successMsg: false,
@@ -29,6 +30,23 @@ const Signup = () => {
         });
     }
 
+    const handleSubmit = evt => {
+        evt.preventDefault();
+
+        // clientside validation
+        if ( isEmpty(name) || isEmpty(email) || isEmpty(password) || isEmpty(password2) ) {
+            setFormData({ ...formData, errorMsg: 'Please enter all fields' });
+        } else if ( !isEmail(email) ) {
+            setFormData({ ...formData, errorMsg: 'Please enter a valid email' });
+        } else if ( !isLength(password, {min: 6}) ) {
+            setFormData({ ...formData, errorMsg: 'Password must be at least 6 characters long' });
+        } else if ( password !== password2 ) {
+            setFormData({ ...formData, errorMsg: 'Passwords do not match' });
+        } else {
+            // Success!!! (Submission of form data to backend via HTTP Request goes here)
+        }
+    }
+
     
 
     /************ views *************/
@@ -40,7 +58,7 @@ const Signup = () => {
                 header='Welcome to El Balcon!'
                 content='Fill out the form below to signup for a new account'
             />
-            <Form className='attached fluid segment' loading={isLoading} success={Boolean(successMsg)} error={Boolean(errorMsg)}>
+            <Form className='attached fluid segment' loading={isLoading} success={Boolean(successMsg)} error={Boolean(errorMsg)} onSubmit={handleSubmit} noValidate>
                 <Message success header='Success!' content={successMsg} />
                 <Message error header='Oops!' content={errorMsg} />
                 <Form.Input
