@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { isEmpty, isEmail, isLength } from 'validator';
+import { signup } from '../api/auth';
 import { Container, Form, Message, Button } from 'semantic-ui-react';
 
 
@@ -8,8 +9,8 @@ const Signup = () => {
 
     /************ component state *************/
     const [formData, setFormData] = useState({
-        name: 'john',
-        email: 'john@gmail.com',
+        name: 'john doe',
+        email: 'jdoe@gmail.com',
         password: '',
         password2: '',
         successMsg: false,
@@ -44,6 +45,8 @@ const Signup = () => {
             setFormData({ ...formData, errorMsg: 'Passwords do not match' });
         } else {
             // Success!!! (Submission of form data to backend via HTTP Request goes here)
+            signup({ name, email, password })
+                .then(res => console.log(res));
         }
     }
 
