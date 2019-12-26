@@ -1,3 +1,4 @@
+const compression = require('compression');
 const express = require('express');
 const app = express();
 const cors = require('cors');
@@ -7,14 +8,16 @@ const authRoutes = require('./routes/auth');
 
 
 
-// connect database
-connectDB();
-
-
 // middleware
+app.use(compression());
 app.use(cors());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
+
+
+
+// connect database
+connectDB();
 
 
 
