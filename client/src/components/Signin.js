@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { isEmpty, isEmail } from 'validator';
 import { Container, Message, Form, Button } from 'semantic-ui-react';
 
 const Signin = () => {
@@ -29,6 +30,19 @@ const Signin = () => {
         });
     }
 
+    const handleSubmit = evt => {
+        evt.preventDefault();
+
+        // clientside validation
+        if ( isEmpty(email) || isEmpty(password) ) {
+            setFormData({ ...formData, errorMsg: 'Please enter all fields' });
+        } else if ( !isEmail(email) ) {
+            setFormData({ ...formData, errorMsg: 'Please enter a valid email' });
+        } else {
+            // success - send user data to server via HTTP Request
+            
+        }
+    }
 
 
     /************ views *************/
@@ -40,7 +54,7 @@ const Signin = () => {
                 header='Welcome Back!'
                 content='Signin with email and password'
             />
-            <Form className='attached fluid segment' loading={isLoading} error={Boolean(errorMsg)}>
+            <Form className='attached fluid segment' loading={isLoading} error={Boolean(errorMsg)} onSubmit={handleSubmit} noValidate>
                 <Message error header='Oops!' content={errorMsg} />
                 <Form.Input
                     fluid
