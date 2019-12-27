@@ -20,6 +20,16 @@ const Signin = () => {
 
 
 
+    /************ events *************/
+    const handleChange = evt => {
+        setFormData({
+            ...formData,
+            errorMsg: false,
+            [evt.target.name]: evt.target.value
+        });
+    }
+
+
 
     /************ views *************/
     const showSigninForm = () => (
@@ -41,6 +51,7 @@ const Signin = () => {
                     placeholder='Email'
                     name='email'
                     value={email}
+                    onChange={handleChange}
                 />
                 <Form.Input
                     fluid
@@ -51,6 +62,7 @@ const Signin = () => {
                     placeholder='Password'
                     name='password'
                     value={password}
+                    onChange={handleChange}
                 />
                 <Button
                     type='submit'
