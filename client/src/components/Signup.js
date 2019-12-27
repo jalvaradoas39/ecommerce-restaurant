@@ -68,10 +68,9 @@ const Signup = () => {
                 content='Fill out the form below to signup for a new account'
             />
             <Form className='attached fluid segment' loading={isLoading} success={Boolean(successMsg)} error={Boolean(errorMsg)} onSubmit={handleSubmit} noValidate>
-                {/* <Message success header='Success!' content={successMsg} /> */}
                 <Message success>
                     <Message.Header>Success!</Message.Header>
-                    <p>Please <Link to='/signin'>signin</Link>&nbsp;here</p>
+                    <p>Please <Link to='/signin'>signin</Link> here</p>
                 </Message>
                 <Message error header='Oops!' content={errorMsg} />
                 <Form.Input
@@ -126,7 +125,7 @@ const Signup = () => {
                 />
             </Form>
             <Message attached='bottom' warning>   
-                Already signed up?&nbsp;<Link to='/signin'>Login here</Link>&nbsp;instead.
+                <p>Already signed up? <Link to='/signin'>Login</Link> here</p>
             </Message>
         </Container>
     );
