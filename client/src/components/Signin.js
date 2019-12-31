@@ -49,7 +49,7 @@ const Signin = () => {
                 })
                 .catch(err => {
                     removeTokenInStorage('jwt');
-                    setFormData({ ...formData, isLoading: false })
+                    setFormData({ ...formData, isLoading: false, errorMsg: err.response.data.errorMsg })
                     console.log(err.message);
                 });
             
