@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import './App.css';
-import { Segment, Sidebar, Menu, Icon } from 'semantic-ui-react';
+// import { Segment, Sidebar, Menu, Icon } from 'semantic-ui-react';
 // components
 import Header from './Header';
 import Home from './Home';

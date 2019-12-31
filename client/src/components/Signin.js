@@ -2,7 +2,13 @@ import React, { useState } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import { isEmpty, isEmail } from 'validator';
 import { signin } from '../api/auth';
-import { setTokenInStorage, getTokenInStorage, removeTokenInStorage } from '../utils/token';
+import { 
+    setTokenInStorage, 
+    removeTokenInStorage,
+    setUserInStorage,
+    getUserInStorage,
+    removeUserInStorage
+} from '../utils/localStorage';
 import { Container, Message, Form, Button } from 'semantic-ui-react';
 
 const Signin = () => {
@@ -44,15 +50,18 @@ const Signin = () => {
             // make clientside HTTP Request to server
             signin(email, password)
                 .then(response => {
-                    setTokenInStorage('jwt', response.data);
-                    setFormData({ ...formData, isLoading: false, redirectToDashboard: true })
+                    setTokenInStorage('jwt', response.data.token);
+                    setUserInStorage('user', response.data.user);
+
+                    setFormData({ ...formData, isLoading: false, redirectToDashboard: true });
                 })
                 .catch(err => {
                     removeTokenInStorage('jwt');
-                    setFormData({ ...formData, isLoading: false, errorMsg: err.response.data.errorMsg })
-                    console.log(err.message);
-                });
-            
+                    removeUserInStorage('user');
+
+                    setFormData({ ...formData, isLoading: false, errorMsg: err.response.data.errorMsg });
+                    console.log(err);
+                });   
         }
     }
 
@@ -108,7 +117,7 @@ const Signin = () => {
     /************ redirect *************/
     const redirect = () => {
         if ( redirectToDashboard ) {
-            const { user } = getTokenInStorage('jwt');
+            const user = getUserInStorage('user');
             
             if ( user && user.role === 1 ) {
                 return <Redirect to='/admin/dashboard' />
