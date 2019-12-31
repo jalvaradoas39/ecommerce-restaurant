@@ -9,5 +9,23 @@ export const signup = userData => {
         }
     }
 
-    return axios.post('/api/auth/signup', userData, config)
+    return axios.post('/api/auth/signup', userData, config);
+}
+
+
+
+export const signin = (email, password) => {
+    const config = {
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+        }
+    }
+
+    const body = {
+        email,
+        password
+    }
+
+    return axios.post('/api/auth/signin', body, config);
 }

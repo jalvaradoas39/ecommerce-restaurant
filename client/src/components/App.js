@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import './App.css';
+import { Segment, Sidebar, Menu, Icon } from 'semantic-ui-react';
 // components
 import Header from './Header';
 import Home from './Home';
@@ -15,6 +16,7 @@ import NoMatch from './NoMatch';
 const App = () => {
     return (
         <BrowserRouter>
+        
             <Header />
             <main>
                 <Switch>
@@ -25,7 +27,8 @@ const App = () => {
                     <Route exact path='/cart' component={Cart} />
                     <Route component={NoMatch} />
                 </Switch>
-            </main>
+            </main>  
+            
         </BrowserRouter>
     )
 }

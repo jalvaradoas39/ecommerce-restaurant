@@ -2,15 +2,17 @@ const express = require('express');
 const router = express.Router();
 const { check, validationResult } = require('express-validator');
 const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
+const { jwtSecret, jwtExpire } = require('../config/keys');
 const User = require('../models/User');
 
 
 
-// @route           POST /api/auth/signup
-// @description     signup new user
-// @access          public
+// @route               POST /api/auth/signup
+// @description         signup new user
+// @return              new user object
+// @access              public
 router.post('/signup', 
-// validation
 [
     check('name', 'Name must be at least 2 characters long')
         .trim()
@@ -62,6 +64,75 @@ async (req, res) => {
     }
     
 });
+
+
+
+
+// @route               POST /api/auth/signin
+// @description         signin user
+// @return              { token, user: { _id, name, email, role } }
+// @access              public
+router.post('/signin',
+[
+    check('email', 'Invalid email')
+        .isEmail()
+],
+async (req, res) => {
+    // destructure incoming data via client
+    const { email, password } = req.body;
+
+    try {
+        // check if user exists with email
+        let user = await User.findOne({ email });
+        if (!user) {
+            return res.status(400).json({
+                errorMsg: 'Invalid credentials'
+            });
+        }
+
+        // check if password provided by user matches the one in database
+        const isMatch = await bcrypt.compare(password, user.hashedPassword);
+        if (!isMatch) {
+            return res.status(400).json({
+                errorMsg: 'Invalid credentials'
+            });
+        }
+
+
+        // create payload for jwt
+        const payload = {
+            _id: user._id
+        }
+
+        // sign jwt
+        jwt.sign(
+            payload,
+            jwtSecret,
+            { expiresIn: jwtExpire },
+            (err, token) => {
+                if (err) throw err;
+
+                // make serverside HTTP Response to client
+                res.json({
+                    token,
+                    user: { 
+                        _id: user._id, 
+                        name: user.name, 
+                        email: user.email,
+                        role: user.role  
+                    }
+                });
+            }
+        );
+
+    } catch (err) {
+        console.log(err);
+        res.status(500).send('Server error: auth');
+    }
+
+});
+
+
 
 
 

@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import { isEmpty, isEmail } from 'validator';
+import { signin } from '../api/auth';
+import { setTokenInStorage, getTokenInStorage, removeTokenInStorage } from '../utils/token';
 import { Container, Message, Form, Button } from 'semantic-ui-react';
 
 const Signin = () => {
@@ -10,16 +12,13 @@ const Signin = () => {
     const [formData, setFormData] = useState({
         email: '',
         password: '',
-        success: false,
         errorMsg: false,
         isLoading: false,
-        redirectUser: false
+        redirectToDashboard: false
     });
 
     // eslint-disable-next-line
-    const { email, password, success, errorMsg, isLoading, redirectUser } = formData;
-
-
+    const { email, password, errorMsg, isLoading, redirectToDashboard } = formData;
 
     /************ events *************/
     const handleChange = evt => {
@@ -30,8 +29,11 @@ const Signin = () => {
         });
     }
 
+
     const handleSubmit = evt => {
         evt.preventDefault();
+
+        setFormData({ ...formData, isLoading: true });
 
         // clientside validation
         if ( isEmpty(email) || isEmpty(password) ) {
@@ -39,7 +41,17 @@ const Signin = () => {
         } else if ( !isEmail(email) ) {
             setFormData({ ...formData, errorMsg: 'Please enter a valid email' });
         } else {
-            // success - send user data to server via HTTP Request
+            // make clientside HTTP Request to server
+            signin(email, password)
+                .then(response => {
+                    setTokenInStorage('jwt', response.data);
+                    setFormData({ ...formData, isLoading: false, redirectToDashboard: true })
+                })
+                .catch(err => {
+                    removeTokenInStorage('jwt');
+                    setFormData({ ...formData, isLoading: false })
+                    console.log(err.message);
+                });
             
         }
     }
@@ -93,10 +105,25 @@ const Signin = () => {
 
 
 
+    /************ redirect *************/
+    const redirect = () => {
+        if ( redirectToDashboard ) {
+            const { user } = getTokenInStorage('jwt');
+            
+            if ( user && user.role === 1 ) {
+                return <Redirect to='/admin/dashboard' />
+            } else {
+                return <Redirect to='/user/dashboard' />
+            }
+        }   
+    }
+
 
     /************ output *************/
     return (
         <section>
+            {/* { JSON.stringify(formData) } */}
+            { redirect() }
             { showSigninForm() }
         </section>
     );
