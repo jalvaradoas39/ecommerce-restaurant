@@ -4,11 +4,11 @@ import { getTokenInStorage, getUserRole } from '../utils/localStorage';
 
 
 
-const PrivateRoute = ({ component: Component, ...rest }) => (
+const AdminRoute = ({ component: Component, ...rest }) => (
     <Route
         {...rest}
         render={props => 
-            getTokenInStorage() && getUserRole() === 0 ? (
+            getTokenInStorage() && getUserRole() === 1 ? (
                 <Component {...props} />
             ) : (
                 <Redirect to={{
@@ -22,4 +22,4 @@ const PrivateRoute = ({ component: Component, ...rest }) => (
 );
 
 
-export default PrivateRoute;
+export default AdminRoute;

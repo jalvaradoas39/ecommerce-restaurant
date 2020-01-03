@@ -3,6 +3,7 @@ import { Link, withRouter } from 'react-router-dom';
 import {
     getTokenInStorage,
     getUserInStorage,
+    getUserRole,
     handleSignout
 } from '../utils/localStorage';
 import { Menu, Image, Icon, Container } from 'semantic-ui-react';
@@ -21,13 +22,27 @@ const Header = ({ history }) => (
                         />
                     </Menu.Item>
 
-                    <Menu.Item as={Link} to='/user/dashboard'>
-                        <Icon
-                            name='user'
-                            size='large'
-                        />
-                        UserDashboard
-                    </Menu.Item>
+
+                    {getTokenInStorage() && getUserRole() === 0 && (
+                        <Menu.Item as={Link} to='/user/dashboard'>
+                            <Icon
+                                name='user'
+                                size='large'
+                            />
+                            UserDashboard
+                        </Menu.Item>
+                    )}
+
+                    {getTokenInStorage() && getUserRole() === 1 && (
+                        <Menu.Item as={Link} to='/admin/dashboard'>
+                            <Icon
+                                name='user'
+                                size='large'
+                            />
+                            AdminDashboard
+                        </Menu.Item>
+                    )}
+
 
                     {!getTokenInStorage() && !getUserInStorage() && (
                         <>
@@ -49,19 +64,17 @@ const Header = ({ history }) => (
                      )}
 
                     {getTokenInStorage() && getUserInStorage() && (
-                        <>
-                            <Menu.Item onClick={() => {
-                                handleSignout(() => {
-                                    history.push('/');
-                                });
-                            }}>
-                                <Icon
-                                    name='sign out'
-                                    size='large'
-                                />
-                                Signout
-                            </Menu.Item>
-                        </>
+                        <Menu.Item onClick={() => {
+                            handleSignout(() => {
+                                history.push('/');
+                            });
+                        }}>
+                            <Icon
+                                name='sign out'
+                                size='large'
+                            />
+                            Signout
+                        </Menu.Item>
                      )}
 
 

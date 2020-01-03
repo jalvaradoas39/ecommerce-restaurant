@@ -9,6 +9,8 @@ import Shop from './Shop';
 import Cart from './Cart';
 import PrivateRoute from './PrivateRoute';
 import UserDashboard from './UserDashboard';
+import AdminRoute from './AdminRoute';
+import AdminDashboard from './AdminDashboard';
 import NoMatch from './NoMatch';
 
 
@@ -26,6 +28,7 @@ const App = () => {
                     <Route exact path='/shop' component={Shop} />
                     <Route exact path='/cart' component={Cart} />
                     <PrivateRoute exact path='/user/dashboard' component={UserDashboard} />
+                    <AdminRoute exact path='/admin/dashboard' component={AdminDashboard} />
                     <Route component={NoMatch} />
                 </Switch>
             </main>  

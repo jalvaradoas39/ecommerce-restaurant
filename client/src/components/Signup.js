@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import { isEmpty, isEmail, isLength } from 'validator';
 import { signup } from '../api/auth';
+import { getTokenInStorage, getUserInStorage } from '../utils/localStorage';
 import { Container, Form, Message, Button } from 'semantic-ui-react';
 
 
@@ -131,10 +132,22 @@ const Signup = () => {
     );
 
     
+
+    /************ redirect *************/
+    const redirect = () => {
+        // if already logged in, redirect home
+        if ( getTokenInStorage() && getUserInStorage() ) {
+            return <Redirect to='/' />
+        }
+    }
+
+
+    
     /************ output *************/
     return (
         <section>
             {/* { JSON.stringify(formData) } */}
+            { redirect() }
             { showSignupForm() }
         </section>
     )

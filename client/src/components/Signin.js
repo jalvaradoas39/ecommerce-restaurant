@@ -4,6 +4,7 @@ import { isEmpty, isEmail } from 'validator';
 import { signin } from '../api/auth';
 import { 
     setTokenInStorage, 
+    getTokenInStorage,
     removeTokenInStorage,
     setUserInStorage,
     getUserInStorage,
@@ -126,7 +127,12 @@ const Signin = () => {
             } else {
                 return <Redirect to='/user/dashboard' />
             }
-        }   
+        }
+
+        // if already logged in, redirect home
+        if ( getTokenInStorage() && getUserInStorage() ) {
+            return <Redirect to='/' />
+        }
     }
 
 

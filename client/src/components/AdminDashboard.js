@@ -1,9 +1,10 @@
 import React from 'react';
 import { getUserInStorage } from '../utils/localStorage';
 
-const UserDashboard = () => {
+const AdminDashboard = () => {
 
     const { _id, name, email, role } = getUserInStorage();
+
 
     return (
         <section>
@@ -16,4 +17,4 @@ const UserDashboard = () => {
 };
 
 
-export default UserDashboard;
+export default AdminDashboard;
