@@ -1,9 +1,14 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
+import {
+    getTokenInStorage,
+    getUserInStorage,
+    handleSignout
+} from '../utils/localStorage';
 import { Menu, Image, Icon, Container } from 'semantic-ui-react';
 
 
-const Header = () => (
+const Header = ({ history }) => (
     <header>
         <nav>
             <Menu stackable>
@@ -15,34 +20,50 @@ const Header = () => (
                             size='tiny'
                         />
                     </Menu.Item>
-                    <Menu.Item as={Link} to='/'>
+
+                    <Menu.Item as={Link} to='/user/dashboard'>
                         <Icon
-                            name='tags'
+                            name='user'
                             size='large'
                         />
-                        Shop
+                        UserDashboard
                     </Menu.Item>
-                    <Menu.Item as={Link} to='/signup'>
-                        <Icon
-                            name='signup'
-                            size='large'
-                        />
-                        Signup
-                    </Menu.Item>
-                    <Menu.Item as={Link} to='/signin'>
-                        <Icon 
-                            name='sign in'
-                            size='large'
-                        />
-                        Signin
-                    </Menu.Item>
-                    <Menu.Item as={Link} to='/cart'>
-                        <Icon
-                            name='cart'
-                            size='large'
-                        />
-                        Cart
-                    </Menu.Item>
+
+                    {!getTokenInStorage() && !getUserInStorage() && (
+                        <>
+                            <Menu.Item as={Link} to='/signup'>
+                                <Icon
+                                    name='signup'
+                                    size='large'
+                                />
+                                Signup
+                            </Menu.Item>
+                            <Menu.Item as={Link} to='/signin'>
+                                <Icon 
+                                    name='sign in'
+                                    size='large'
+                                />
+                                Signin
+                            </Menu.Item>
+                        </>
+                     )}
+
+                    {getTokenInStorage() && getUserInStorage() && (
+                        <>
+                            <Menu.Item onClick={() => {
+                                handleSignout(() => {
+                                    history.push('/');
+                                });
+                            }}>
+                                <Icon
+                                    name='sign out'
+                                    size='large'
+                                />
+                                Signout
+                            </Menu.Item>
+                        </>
+                     )}
+
 
                 </Container>
             </Menu>
@@ -50,4 +71,5 @@ const Header = () => (
     </header>
 );
 
-export default Header;
+export default withRouter(Header);
+

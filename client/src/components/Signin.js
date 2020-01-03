@@ -26,6 +26,8 @@ const Signin = () => {
     // eslint-disable-next-line
     const { email, password, errorMsg, isLoading, redirectToDashboard } = formData;
 
+
+    
     /************ events *************/
     const handleChange = evt => {
         setFormData({
@@ -50,14 +52,14 @@ const Signin = () => {
             // make clientside HTTP Request to server
             signin(email, password)
                 .then(response => {
-                    setTokenInStorage('jwt', response.data.token);
-                    setUserInStorage('user', response.data.user);
+                    setTokenInStorage(response.data.token);
+                    setUserInStorage(response.data.user);
 
                     setFormData({ ...formData, isLoading: false, redirectToDashboard: true });
                 })
                 .catch(err => {
-                    removeTokenInStorage('jwt');
-                    removeUserInStorage('user');
+                    removeTokenInStorage();
+                    removeUserInStorage();
 
                     setFormData({ ...formData, isLoading: false, errorMsg: err.response.data.errorMsg });
                     console.log(err);
@@ -117,7 +119,7 @@ const Signin = () => {
     /************ redirect *************/
     const redirect = () => {
         if ( redirectToDashboard ) {
-            const user = getUserInStorage('user');
+            const user = getUserInStorage();
             
             if ( user && user.role === 1 ) {
                 return <Redirect to='/admin/dashboard' />

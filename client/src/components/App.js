@@ -1,14 +1,14 @@
 import React from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import './App.css';
-// import { Segment, Sidebar, Menu, Icon } from 'semantic-ui-react';
-// components
 import Header from './Header';
 import Home from './Home';
 import Signup from './Signup';
 import Signin from './Signin';
 import Shop from './Shop';
 import Cart from './Cart';
+import PrivateRoute from './PrivateRoute';
+import UserDashboard from './UserDashboard';
 import NoMatch from './NoMatch';
 
 
@@ -25,6 +25,7 @@ const App = () => {
                     <Route exact path='/signin' component={Signin} />
                     <Route exact path='/shop' component={Shop} />
                     <Route exact path='/cart' component={Cart} />
+                    <PrivateRoute exact path='/user/dashboard' component={UserDashboard} />
                     <Route component={NoMatch} />
                 </Switch>
             </main>  
