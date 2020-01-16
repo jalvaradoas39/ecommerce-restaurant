@@ -4,7 +4,7 @@ nav {
 
 
 
-/************ #fixed-navbar *************/
+/************ #fixed-navbar (mobile) *************/
 #fixed-navbar {
     position: fixed;
     top: 0;
@@ -18,7 +18,7 @@ nav {
 
 
 
-/************ #sidebar *************/
+/************ #sidebar (for mobile) *************/
 #sidebar {
     position: fixed;
     top: 0px;
@@ -27,7 +27,7 @@ nav {
     height: 100vh;
     background: #151719;
     z-index: 2;
-    transition: all 500ms linear;
+    transition: all 400ms linear;
 }
 
 #sidebar .toggle-btn {

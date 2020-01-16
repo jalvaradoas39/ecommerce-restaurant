@@ -8,10 +8,7 @@ const AdminDashboard = () => {
 
     return (
         <section>
-            <p>{_id}</p>
-            <p>{name}</p>
-            <p>{email}</p>
-            <p>{role}</p>
+
         </section>
     );
 };

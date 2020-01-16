@@ -31,7 +31,7 @@ const App = () => {
                     <AdminRoute exact path='/admin/dashboard' component={AdminDashboard} />
                     <Route component={NoMatch} />
                 </Switch>
-            </main>  
+            </main>
             
         </BrowserRouter>
     )

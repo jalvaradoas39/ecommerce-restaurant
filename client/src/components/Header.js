@@ -177,19 +177,17 @@ const Header = ({ history }) => {
 
                     {/* show if user/admin ARE logged in */}
                     {getTokenInStorage() && getUserInStorage() && (
-                        <li>
-                            <Link onClick={() => {
-                                handleSignout(() => {
-                                    handleToggle();
-                                    history.push('/');
-                                });
-                            }}>
-                                <Icon
-                                    name='sign out'
-                                    size='large'
-                                />
-                                Signout
-                            </Link>
+                        <li style={{ color: 'rgba(230, 230, 230, 0.9)' }} onClick={() => {
+                            handleSignout(() => {
+                                handleToggle();
+                                history.push('/');
+                            });
+                        }}>
+                            <Icon
+                                name='sign out'
+                                size='large'
+                            />
+                            Signout
                         </li>
                     )}
                 </ul>
