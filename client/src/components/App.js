@@ -11,6 +11,7 @@ import PrivateRoute from './PrivateRoute';
 import UserDashboard from './UserDashboard';
 import AdminRoute from './AdminRoute';
 import AdminDashboard from './AdminDashboard';
+import AddCategory from './AddCategory';
 import NoMatch from './NoMatch';
 
 
@@ -29,6 +30,7 @@ const App = () => {
                     <Route exact path='/cart' component={Cart} />
                     <PrivateRoute exact path='/user/dashboard' component={UserDashboard} />
                     <AdminRoute exact path='/admin/dashboard' component={AdminDashboard} />
+                    <AdminRoute exact path='/admin/create/category' component={AddCategory} />
                     <Route component={NoMatch} />
                 </Switch>
             </main>
